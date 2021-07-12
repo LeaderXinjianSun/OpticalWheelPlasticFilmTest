@@ -2,9 +2,41 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:pages="clr-namespace:OpticalWheelPlasticFilmTest.Views.Pages"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding Title}" Height="350" Width="525">
+        Height="768" Width="1024" WindowStartupLocation="CenterScreen" Icon="/icon_vision.ico">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding AppLoadedEventCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding AppClosedEventCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Title>
+        <MultiBinding StringFormat="{}{0} v{1}">
+            <Binding Path="Title" />
+            <Binding Path="Version" />
+        </MultiBinding>
+    </Window.Title>
     <Grid>
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu VerticalAlignment="Center">
+            <MenuItem Header="主页" Command="{Binding MenuCommand}" CommandParameter="0"></MenuItem>
+            <MenuItem Header="关于" Command="{Binding MenuCommand}" CommandParameter="6"></MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+            <pages:HomePage></pages:HomePage>
+        </Grid>
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock Text="{Binding CurCamName,StringFormat=当前相机:{0}}"></TextBlock>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>

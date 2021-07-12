@@ -1,4 +1,6 @@
-﻿using OpticalWheelPlasticFilmTest.Views;
+﻿using OpticalWheelPlasticFilmTest.ViewModels.Dialogs;
+using OpticalWheelPlasticFilmTest.Views;
+using OpticalWheelPlasticFilmTest.Views.Dialogs;
 using Prism.Ioc;
 using Prism.Modularity;
 using System.Windows;
@@ -17,7 +19,8 @@ namespace OpticalWheelPlasticFilmTest
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            //注册对话框
+            containerRegistry.RegisterDialog<AboutDialog, AboutDialogViewModel>();
         }
     }
 }
